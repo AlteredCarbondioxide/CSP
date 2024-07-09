@@ -28,17 +28,12 @@ exports.createTicket = (req, res) => {
   };
 
   exports.viewTicketsall = (req, res) => {
-    const customerId = req.user.id;
-    if (!customerid) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-
-    db.all('SELECT * FROM tickets', (err, rows) => {
+    db.all('SELECT * FROM tickets', [],(err, rows) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ message: 'Error retrieving tickets' });
       }
-      res.json(rows); // Return a JSON response
+      res.status(200).json(rows);
     });
   };
 
