@@ -42,16 +42,10 @@ exports.createTicket = (req, res) => {
   exports.answerTicket = (req, res) => {
     const { id, answer } = req.body;
     db.run('UPDATE tickets SET answer = ?, status = "Answered" WHERE id = ?', [answer, id], function(err) {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: 'Error answering ticket' });
-      }
+      
   
       db.get('SELECT * FROM tickets WHERE id = ?', [id], (err, ticket) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).json({ message: 'Error retrieving updated ticket' });
-        }
+        
         res.json(ticket); // Return the updated ticket object
       });
     });
